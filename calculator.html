@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Calculator</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f0f2f5;
+      display:flex;justify-content:center;align-items:center;
+      height:100vh;margin:0;
+    }
+    .calculator{
+      background:#fff;padding:20px;border-radius:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,.15);width:300px;
+    }
+    .display {
+  width: 93%;
+  height: 50px;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #e8e8e8;
+  word-wrap: break-word;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+}
+
+    .buttons{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+    }
+    button{
+      padding:15px;font-size:1.2rem;border:none;border-radius:8px;
+      cursor:pointer;background:#f2f2f2;transition:.2s;
+    }
+    button:hover{background:#ddd;}
+    .operator{background:#ffd54f;}
+    .equal{background:#4caf50;color:#fff;}
+    .clear{background:#f44336;color:#fff;}
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <div id="display" class="display">0</div>
+  <div class="buttons">
+    <button onclick="clearDisplay()" class="clear">C</button>
+    <button onclick="deleteLast()">⌫</button>
+    <button onclick="appendValue('(')">(</button>
+    <button onclick="appendValue(')')">)</button>
+
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button onclick="appendValue('/')">÷</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button onclick="appendValue('*')">×</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button onclick="appendValue('-')">−</button>
+
+    <button onclick="appendValue('0')">0</button>
+    <button onclick="appendValue('.')">.</button>
+    <button onclick="appendValue('+')">+</button>
+    <button onclick="calculate()" class="equal">=</button>
+  </div>
+</div>
+
+<script>
+  const display = document.getElementById('display');
+  const operators = '+-*/';
+
+  const isOperator = c => operators.includes(c);
+
+  function appendValue(val){
+    let txt = display.innerText;
+
+    if (txt === '0' && val !== '.') txt = '';
+
+    if (isOperator(val)){
+      const last = txt.slice(-1);
+      if (isOperator(last)){
+        txt = txt.slice(0, -1);       
+      }
+
+      if (txt === '' && val !== '-') return;
+    }
+
+    display.innerText = txt + val;
+  }
+
+  function clearDisplay(){
+    display.innerText = '0';
+  }
+
+  function deleteLast(){
+    if (display.innerText.length > 1){
+      display.innerText = display.innerText.slice(0, -1);
+    } else {
+      display.innerText = '0';
+    }
+  }
+
+  function calculate(){
+    try{
+      const result = eval(display.innerText);
+      display.innerText = result;
+    }catch{
+      display.innerText = 'Error';
+    }
+  }
+
+  document.addEventListener('keydown', e=>{
+    const k = e.key;
+
+    if (!isNaN(k) || k === '.'){           // digits & dot
+      appendValue(k);
+    } else if (operators.includes(k)){     
+      appendValue(k);
+    } else if (k === 'Enter' || k === '='){
+      calculate();
+    } else if (k === 'Backspace'){         
+      deleteLast();
+    } else if (k === 'Escape' || k === 'c' || k === 'C'){ 
+      clearDisplay();
+    } else if (k === '(' || k === ')'){    
+      appendValue(k);
+    }
+  });
+</script>
+
+</body>
+</html>
