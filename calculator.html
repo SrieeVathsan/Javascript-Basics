@@ -16,20 +16,20 @@
       box-shadow:0 4px 10px rgba(0,0,0,.15);width:300px;
     }
     .display {
-  width: 93%;
-  height: 50px;
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #e8e8e8;
-  word-wrap: break-word;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; 
-}
+      width: 93%;
+      height: 50px;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #e8e8e8;
+      word-wrap: break-word;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; 
+    }
 
     .buttons{
       display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
@@ -123,7 +123,7 @@
   document.addEventListener('keydown', e=>{
     const k = e.key;
 
-    if (!isNaN(k) || k === '.'){           // digits & dot
+    if (!isNaN(k) || k === '.'){           
       appendValue(k);
     } else if (operators.includes(k)){     
       appendValue(k);
