@@ -10,6 +10,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      transition: background 0.3s, color 0.3s;
     }
     .quiz-box {
       background: white;
@@ -17,6 +18,7 @@
       border-radius: 8px;
       width: 300px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s, color 0.3s;
     }
     button {
       display: block;
@@ -32,6 +34,25 @@
     button:hover {
       background: #45a049;
     }
+
+    .dark-mode {
+      background: #121212;
+      color: #f1f1f1;
+    }
+
+    .dark-mode .quiz-box {
+      background: #1e1e1e;
+      color: #f1f1f1;
+      box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+    }
+
+    .toggle-btn {
+      background: #2196F3;
+    }
+
+    .toggle-btn:hover {
+      background: #1e88e5;
+    }
   </style>
 </head>
 <body>
@@ -39,6 +60,7 @@
     <h3 id="question">Question text</h3>
     <div id="options"></div>
     <p id="score"></p>
+    <button class="toggle-btn" onclick="toggleMode()">Light/Dark Mode</button>
   </div>
 
   <script>
@@ -46,13 +68,28 @@
       {
         question: "What is the capital of India?",
         options: ["New Delhi", "Mumbai", "Bengaluru", "Chennai"],
-        answer: "New Delhi"
+        answer: "Paris"
       },
       {
-        question: "2 + 2 = ?",
+        question: "1 + 1 = ?",
         options: ["3", "4", "5", "2"],
-        answer: "4"
-      }
+        answer: "2"
+      },
+      {
+        question: "Which shape has 3 sides?",
+        options: ["Square", "Triangle", "Circle", "Rectangle"],
+        answer: "Triangle"
+      },
+      {
+        question: "Which animal says 'Meow'?",
+        options: ["Dog", "Cow", "Cat", "Sheep"],
+        answer: "Cat"
+      },
+      {
+        question: "How many legs does a spider have?",
+        options: ["6", "8", "4", "10"],
+        answer: "8"
+      },
     ];
 
     let currentQuestion = 0;
@@ -87,6 +124,10 @@
         optionsEl.innerHTML = "";
         scoreEl.innerText = `Your Score: ${score} / ${quizData.length}`;
       }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
     }
 
     loadQuestion();
